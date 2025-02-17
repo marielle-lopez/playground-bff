@@ -15,7 +15,7 @@ public class CreatePostDTO {
     @NotNull
     private Date modifiedAt;
     @NotBlank
-    private String authour;
+    private String author;
     @NotBlank
     private String introduction;
     @NotBlank
@@ -37,8 +37,8 @@ public class CreatePostDTO {
         return this.modifiedAt;
     };
 
-    public String getAuthour() {
-        return this.authour;
+    public String getAuthor() {
+        return this.author;
     };
 
     public String getIntroduction() {
