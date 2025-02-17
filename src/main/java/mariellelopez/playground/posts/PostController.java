@@ -15,17 +15,22 @@ public class PostController {
 
     @GetMapping
     public List<Post> getAllPosts() {
-        return postService.getAllPosts();
+        return this.postService.getAllPosts();
     };
 
     @GetMapping("/{id}")
     public Optional<Post> getPostById(@PathVariable Long id) {
-        return postService.getPostById(id);
+        return this.postService.getPostById(id);
     };
 
     @PostMapping
     public Post createPost(@Valid @RequestBody CreatePostDTO data) {
-        return postService.createPost(data);
+        return this.postService.createPost(data);
+    };
+
+    @PatchMapping("/{id}")
+    public Optional<Post> updatePostById(@PathVariable Long id, @Valid @RequestBody UpdatePostDTO data) {
+        return this.postService.updatePostById(id, data);
     };
 
     @DeleteMapping("/{id}")
