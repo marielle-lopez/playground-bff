@@ -4,6 +4,9 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
+import java.util.List;
+import java.util.Optional;
+
 @RestController
 @RequestMapping("/posts")
 public class PostController {
@@ -11,17 +14,22 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public String getAllPosts() {
+    public List<Post> getAllPosts() {
         return postService.getAllPosts();
     };
 
     @GetMapping("/{id}")
-    public String getPostById(@PathVariable int id) {
+    public Optional<Post> getPostById(@PathVariable Long id) {
         return postService.getPostById(id);
     };
 
     @PostMapping
-    public String createPost(@Valid @RequestBody CreatePostDTO data) {
+    public Post createPost(@Valid @RequestBody CreatePostDTO data) {
         return postService.createPost(data);
     };
+
+    @DeleteMapping("/{id}")
+    public Boolean deletePost(@PathVariable Long id) {
+        return postService.deletePostById(id);
+    }
 }
