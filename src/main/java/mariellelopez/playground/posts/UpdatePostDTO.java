@@ -1,40 +1,25 @@
 package mariellelopez.playground.posts;
 
-import jakarta.validation.constraints.NotBlank;
-import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
+import jakarta.validation.constraints.Pattern;
 
-import java.util.Date;
 import java.util.List;
 
-public class CreatePostDTO {
-    @NotBlank
+public class UpdatePostDTO {
+    @Pattern(regexp = "^(?=\\S).*$", message = "Title cannot be empty")
     private String title;
-    @NotNull
-    private Date createdAt;
-    @NotNull
-    private Date modifiedAt;
-    @NotBlank
+    @Pattern(regexp = "^(?=\\S).*$", message = "Author cannot be empty")
     private String author;
-    @NotBlank
+    @Pattern(regexp = "^(?=\\S).*$", message = "Introduction cannot be empty")
     private String introduction;
-    @NotBlank
+    @Pattern(regexp = "^(?=\\S).*$", message = "Body cannot be empty")
     private String body;
-    @NotBlank
+    @Pattern(regexp = "^(?=\\S).*$", message = "Conclusion cannot be empty")
     private String conclusion;
-    @NotEmpty
-    private List<String> tags;
+    private List<@NotNull String> tags;
 
     public String getTitle() {
         return this.title;
-    };
-
-    public Date getCreatedAt() {
-        return this.createdAt;
-    };
-
-    public Date getModifiedAt() {
-        return this.modifiedAt;
     };
 
     public String getAuthor() {
