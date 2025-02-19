@@ -1,12 +1,16 @@
 package mariellelopez.playground.posts;
 
 import jakarta.validation.Valid;
+import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 import java.util.Optional;
 
+@CrossOrigin(origins = "http://localhost:5173")
 @RestController
 @RequestMapping("/posts")
 public class PostController {
@@ -14,27 +18,43 @@ public class PostController {
     private PostService postService;
 
     @GetMapping
-    public List<Post> getAllPosts() {
-        return this.postService.getAllPosts();
+    public ResponseEntity<List<Post>> getAllPosts() {
+        List<Post> events = this.postService.getAllPosts();
+
+        return new ResponseEntity<>(events, HttpStatus.OK);
     };
 
     @GetMapping("/{id}")
-    public Optional<Post> getPostById(@PathVariable Long id) {
-        return this.postService.getPostById(id);
+    public ResponseEntity<Post> getPostById(@PathVariable Long id) {
+        Optional<Post> maybePost = this.postService.getPostById(id);
+        Post foundPost = maybePost.orElseThrow(() -> new RuntimeException("Post not found"));
+
+        return new ResponseEntity<>(foundPost, HttpStatus.OK);
     };
 
     @PostMapping
-    public Post createPost(@Valid @RequestBody CreatePostDTO data) {
-        return this.postService.createPost(data);
+    public ResponseEntity<Post> createPost(@Valid @RequestBody CreatePostDTO data) {
+        Post createdPost = this.postService.createPost(data);
+
+        return new ResponseEntity<>(createdPost, HttpStatus.CREATED);
     };
 
     @PatchMapping("/{id}")
-    public Optional<Post> updatePostById(@PathVariable Long id, @Valid @RequestBody UpdatePostDTO data) {
-        return this.postService.updatePostById(id, data);
+    public ResponseEntity<Post> updatePostById(@PathVariable Long id, @Valid @RequestBody UpdatePostDTO data) {
+        Optional<Post> maybePost = this.postService.updatePostById(id, data);
+        Post createdPost = maybePost.orElseThrow(() -> new RuntimeException("Post not found"));
+
+        return new ResponseEntity<>(createdPost, HttpStatus.OK);
     };
 
     @DeleteMapping("/{id}")
-    public Boolean deletePost(@PathVariable Long id) {
-        return postService.deletePostById(id);
+    public ResponseEntity<Boolean> deletePost(@PathVariable Long id) {
+        Boolean deleted = this.postService.deletePostById(id);
+
+        if (!deleted) {
+            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+
+        return new ResponseEntity<>(HttpStatus.NO_CONTENT);
     }
 }
