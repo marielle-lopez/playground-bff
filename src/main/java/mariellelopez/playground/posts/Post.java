@@ -2,7 +2,7 @@ package mariellelopez.playground.posts;
 
 import jakarta.persistence.*;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Entity
@@ -14,9 +14,9 @@ public class Post {
     @Column
     private String title;
     @Column
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @Column
-    private Date modifiedAt;
+    private LocalDateTime modifiedAt;
     @Column
     private String author;
     @Column
@@ -44,19 +44,19 @@ public class Post {
         this.title = title;
     };
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return this.createdAt;
     };
 
-    public void setCreatedAt(Date createdAt) {
+    public void setCreatedAt(LocalDateTime createdAt) {
         this.createdAt = createdAt;
     };
 
-    public Date getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return this.modifiedAt;
     };
 
-    public void setModifiedAt(Date modifiedAt) {
+    public void setModifiedAt(LocalDateTime modifiedAt) {
         this.modifiedAt = modifiedAt;
     };
 
@@ -76,7 +76,7 @@ public class Post {
         this.introduction = introduction;
     };
 
-    public String body() {
+    public String getBody() {
         return this.body;
     };
 
