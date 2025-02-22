@@ -10,6 +10,8 @@ public class UpdatePostDTO {
     private String title;
     @Pattern(regexp = "^(?=\\S).*$", message = "Author cannot be empty")
     private String author;
+    @Pattern(regexp = "^(?=\\S).*$", message = "Modified date cannot be empty")
+    private String modifiedAt;
     @Pattern(regexp = "^(?=\\S).*$", message = "Introduction cannot be empty")
     private String introduction;
     @Pattern(regexp = "^(?=\\S).*$", message = "Body cannot be empty")
@@ -21,6 +23,10 @@ public class UpdatePostDTO {
     public String getTitle() {
         return this.title;
     };
+
+    public String getModifiedAt() {
+        return this.modifiedAt;
+    }
 
     public String getAuthor() {
         return this.author;
