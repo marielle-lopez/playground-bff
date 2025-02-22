@@ -4,16 +4,16 @@ import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotEmpty;
 import jakarta.validation.constraints.NotNull;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 
 public class CreatePostDTO {
     @NotBlank
     private String title;
     @NotNull
-    private Date createdAt;
+    private LocalDateTime createdAt;
     @NotNull
-    private Date modifiedAt;
+    private LocalDateTime modifiedAt;
     @NotBlank
     private String author;
     @NotBlank
@@ -29,11 +29,11 @@ public class CreatePostDTO {
         return this.title;
     };
 
-    public Date getCreatedAt() {
+    public LocalDateTime getCreatedAt() {
         return this.createdAt;
     };
 
-    public Date getModifiedAt() {
+    public LocalDateTime getModifiedAt() {
         return this.modifiedAt;
     };
 
