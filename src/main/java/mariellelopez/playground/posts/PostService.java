@@ -4,7 +4,7 @@ import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.Date;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
@@ -53,6 +53,17 @@ public class PostService {
             updatedPost.setAuthor(data.getAuthor());
         };
 
+        if (data.getModifiedAt() != null) {
+            System.out.println("Original: " + data.getModifiedAt());
+
+            String formattedDate = data.getModifiedAt().replace("Z", "");
+
+            System.out.println("Processed: " + formattedDate);
+
+            LocalDateTime processedDate = LocalDateTime.parse(formattedDate);
+            updatedPost.setModifiedAt(processedDate);
+        }
+
         if (data.getIntroduction() != null) {
             updatedPost.setIntroduction(data.getIntroduction());
         };
@@ -69,8 +80,7 @@ public class PostService {
             updatedPost.setTags(data.getTags());
         };
 
-        updatedPost.setModifiedAt(new Date());
-
+        this.postRepository.save(updatedPost);
         return Optional.of(updatedPost);
     };
 

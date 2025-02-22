@@ -1,7 +1,6 @@
 package mariellelopez.playground.posts;
 
 import jakarta.validation.Valid;
-import org.apache.coyote.Response;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -42,9 +41,9 @@ public class PostController {
     @PatchMapping("/{id}")
     public ResponseEntity<Post> updatePostById(@PathVariable Long id, @Valid @RequestBody UpdatePostDTO data) {
         Optional<Post> maybePost = this.postService.updatePostById(id, data);
-        Post createdPost = maybePost.orElseThrow(() -> new RuntimeException("Post not found"));
+        Post updatedPost = maybePost.orElseThrow(() -> new RuntimeException("Post not found"));
 
-        return new ResponseEntity<>(createdPost, HttpStatus.OK);
+        return new ResponseEntity<>(updatedPost, HttpStatus.OK);
     };
 
     @DeleteMapping("/{id}")
